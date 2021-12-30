@@ -3,7 +3,7 @@
 
 main :: ()
 {
-    profiler_begin_session("init", #run tprint("\"%init.json\"", #filepath));
+    profiler_begin_session("init", tprint("%init.json", #filepath));
 
     init_program();
 
