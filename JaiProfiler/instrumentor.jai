@@ -71,6 +71,8 @@ profiler_write_profile :: (marker : *Profiler_Marker)
 	log_count += 1;
 
 	sb : String_Builder;
+	init_string_builder(*sb);
+	defer free_buffers(*sb);
 
 	if profile_count != 0
 		append(*sb, ",");
@@ -134,11 +136,13 @@ ensure_directory :: (_path: string)
 	make_directory_if_it_does_not_exist(path);
 }
 
-write_header :: ()
+write_header :: inline ()
 {
 	assert(is_valid(file));
 
 	sb : String_Builder;
+	init_string_builder(*sb);
+	defer free_buffers(*sb);
 
 	append(*sb, "{");
 	append(*sb, "\n\t\"otherData\": {},");
@@ -147,11 +151,13 @@ write_header :: ()
 	file_write(*file, sb);
 }
 
-write_footer :: ()
+write_footer :: inline ()
 {
 	assert(is_valid(file));
 
 	sb : String_Builder;
+	init_string_builder(*sb);
+	defer free_buffers(*sb);
 
 	append(*sb, "\n\t]");
 	append(*sb, "\n}");
